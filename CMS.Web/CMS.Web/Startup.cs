@@ -6,9 +6,12 @@ using CMS.Infrastructure.Middlewares;
 using CMS.Infrastructure.Services;
 using CMS.Infrastructure.Services.Advertisements;
 using CMS.Infrastructure.Services.Categorys;
+using CMS.Infrastructure.Services.Notifications;
 using CMS.Infrastructure.Services.Posts;
 using CMS.Infrastructure.Services.Tracks;
 using CMS.Infrastructure.Services.Users;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -64,8 +67,8 @@ namespace CMS.Web
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IPostService, PostService>();
 			services.AddTransient<IDashboardService, DashboardService>();
-			services.AddTransient<ICategoryServices, CategoryService>();
-
+            services.AddTransient<ICategoryServices, CategoryService>();
+            services.AddTransient<INotificationService, NotificationService>();
             services.AddControllersWithViews();
 		}
 		//Ziad Kamal Al-NumIlat
@@ -91,7 +94,10 @@ namespace CMS.Web
 			app.UseAuthentication();
 			app.UseAuthorization();
 			app.UseExceptionHandler(opts => opts.UseMiddleware<ExceptionHandler>());
-
+			FirebaseApp.Create(new AppOptions()
+			{
+				Credential = GoogleCredential.FromFile(Path.Combine(env.WebRootPath, "cmsweb-f82e5-firebase-adminsdk-kn8a2-34d7364db1.json")),
+			});
             app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(

@@ -14,19 +14,25 @@ namespace CMS.Web.Controllers
         
         public UserController(IUserService userServices):base(userServices)
         {
-            _userServices = userServices;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> AddFCM(string fcm)
+        {
+            await _userService.SetFCMToUser(userId, fcm);
+            return Ok("Update Fcm User");
+        }
+
         public async Task<JsonResult> GetUserData(Pagination pagination, Core.Dtos.Query query)
         {
             var result =await _userServices.GetAll(pagination, query);
             return Json(result);
         }
-        [HttpGet]
+        [HttpGet] 
         public IActionResult Create()
         {
             return View();

@@ -150,6 +150,20 @@ namespace CMS.Infrastructure.Services.Users
             {
                 return Guid.NewGuid().ToString().Substring(1, 8);
             }
+
+        public async Task<string> SetFCMToUser(string userId,string fcmToken)
+        {
+            var user = _db.Users.SingleOrDefault(x => x.Id == userId && !x.IsDelete);
+            if(user == null)
+            {
+                throw new EntityNotFoundException();
+            }
+            user.FCMToken= fcmToken;
+            _db.Users.Update(user);
+            await _db.SaveChangesAsync();
+            return userId;
         }
+
+    }
     }
 

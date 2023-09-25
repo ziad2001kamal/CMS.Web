@@ -11,9 +11,10 @@ namespace CMS.Web.Controllers
     public class BaseController : Controller
     {
 		protected readonly IUserService _userService;
-		protected string userType;                  
+		protected string userType;
+        protected string userId;
 
-		public BaseController(IUserService userservise) {
+        public BaseController(IUserService userservise) {
             _userService = userservise;
 
         }
@@ -24,6 +25,7 @@ namespace CMS.Web.Controllers
             var userName= User.Identity.Name;
 
                 var user=_userService.GetUserByUserName(userName);
+                userId=user.Id;
 				userType = user.UserType;
 				ViewBag.fullName = user.FullName;
                 ViewBag.image = user.ImageUrl;

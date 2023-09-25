@@ -46,3 +46,15 @@ C:\Users\Ziadk\source\repos\CMS.Web\CMS.Core\obj\Debug\net5.0\CMS.Core.dll
 C:\Users\Ziadk\source\repos\CMS.Web\CMS.Core\obj\Debug\net5.0\refint\CMS.Core.dll
 C:\Users\Ziadk\source\repos\CMS.Web\CMS.Core\obj\Debug\net5.0\CMS.Core.pdb
 C:\Users\Ziadk\source\repos\CMS.Web\CMS.Core\obj\Debug\net5.0\ref\CMS.Core.dll
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\bin\Debug\net5.0\CMS.Core.deps.json
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\bin\Debug\net5.0\CMS.Core.dll
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\bin\Debug\net5.0\CMS.Core.pdb
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\obj\Debug\net5.0\CMS.Core.csproj.AssemblyReference.cache
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\obj\Debug\net5.0\CMS.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\obj\Debug\net5.0\CMS.Core.AssemblyInfoInputs.cache
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\obj\Debug\net5.0\CMS.Core.AssemblyInfo.cs
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\obj\Debug\net5.0\CMS.Core.csproj.CoreCompileInputs.cache
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\obj\Debug\net5.0\CMS.Core.dll
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\obj\Debug\net5.0\refint\CMS.Core.dll
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\obj\Debug\net5.0\CMS.Core.pdb
+C:\Users\Ziadk\source\repos\project\CMS.Web\CMS.Core\obj\Debug\net5.0\ref\CMS.Core.dll

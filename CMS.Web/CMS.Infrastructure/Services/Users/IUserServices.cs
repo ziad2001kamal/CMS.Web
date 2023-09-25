@@ -25,6 +25,7 @@ public interface IUserService
         Task<List<UserViewModel>> GetAuthorList();
         UserViewModel GetUserByUserName(string username);
         Task<UpdateUserDto> Get(string Id);
+        Task<string> SetFCMToUser(string userId, string fcmToken);
 
 
 }

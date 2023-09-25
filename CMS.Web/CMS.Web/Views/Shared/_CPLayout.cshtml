@@ -347,20 +347,21 @@
     <script src="~/assets/plugins/global/plugins.bundle.js"></script>
     <script src="~/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
     <script src="~/assets/js/vendors.bundle.js" type="text/javascript"></script>
-    <script src="~/nprogress-master/nprogress.js"></script>
-    <script src="~/assets/js/scripts.bundle.js"></script>
+@*     <script src="~/nprogress-master/nprogress.js"></script>
+ *@    <script src="~/assets/js/scripts.bundle.js"></script>
     <script src="~/assets/js/MainLayout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script type="module">
 
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-analytics.js";
-
-
-        const firebaseConfig = {
+                <script type="module">
+                    // Import the functions you need from the SDKs you need
+                    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+                    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
+                    import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-messaging.js";
+                    // Your web app's Firebase configuration
+                    const firebaseConfig = {
                         apiKey: "AIzaSyAyp3qmFiWSAUxNqe0Wd8oyv2p3ba0dWQY",
                         authDomain: "cmsweb-f82e5.firebaseapp.com",
                         projectId: "cmsweb-f82e5",
@@ -368,25 +369,43 @@
                         messagingSenderId: "421962356688",
                         appId: "1:421962356688:web:5b959c3f7573fe34aa0bd5",
                         measurementId: "G-3X5TVS56YN"
-        };
+                    };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+                    // Initialize Firebase
+                    // Initialize Firebase
+                    const app = initializeApp(firebaseConfig);
+                    const analytics = getAnalytics(app);
+                    const messaging = getMessaging(app);
 
-        const messaging = firebase.messaging();
-
-        messaging.requestPermission().then(() => {
-            return messaging.getToken();
-        }).then(token => {
-            console.log(token);
-            $.ajax({
-                url: "/User/AddFCM?fcm=" + token,
-                type: 'GET',
-                dataType: 'json',
-                success: function (res) {
-                    console.log(res);
-                }
-            });
+                    Notification.requestPermission().then((permission) => {
+                        if (permission === "granted") {
+                            console.log("Notification permission granted.");
+                            return getToken(messaging);
+                        } else {
+                            console.log("Notification permission denied.");
+                            return null;
+                        }
+                    }).then((token) => {
+                        if (token) {
+                            console.log("Token:", token);
+                            const xhr = new XMLHttpRequest();
+                            xhr.open("GET", `/User/AddFCM?fcm=${token}`);
+                            xhr.setRequestHeader("Content-Type", "application/json");
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === XMLHttpRequest.DONE) {
+                                    if (xhr.status === 200) {
+                                        console.log("Token sent successfully.");
+                                        console.log(xhr.responseText);
+                                    } else {
+                                        console.error("Error sending token:", xhr.status);
+                                    }
+                                }
+                            };
+                            xhr.send();
+                        }
+                    }).catch((err) => {
+                        console.error("Error getting token:", err);
+                    });
                 </script>
     @RenderSection("Scripts", required: false)
 </body>
