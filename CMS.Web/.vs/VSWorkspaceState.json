@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\CMS.Data",
+    "\\CMS.Infrastructure",
+    "\\CMS.Infrastructure\\Services",
+    "\\CMS.Infrastructure\\Services\\Email",
+    "\\CMS.Web",
+    "\\CMS.Web\\Controllers",
+    "\\CMS.Web\\Views",
+    "\\CMS.Web\\Views\\Shared",
+    "\\CMS.Web\\wwwroot",
+    "\\CMS.Web\\wwwroot\\Datatable"
+  ],
+  "SelectedNode": "\\CMS.Web.sln",
+  "PreviewInSolutionExplorer": false
+}

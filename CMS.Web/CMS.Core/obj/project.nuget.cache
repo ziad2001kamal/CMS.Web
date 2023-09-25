@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "S7U0rFhMgoBaAxjrK0F/cnIoFFVoX+G+9CdzaoaE4KmgskJ7msHTCa7n9uWeQ/YwPQEfN+57cvFHOrc+Sb59gQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Ziadk\\source\\repos\\project\\CMS.Web\\CMS.Core\\CMS.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ziadk\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
+    "C:\\Users\\Ziadk\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\Ziadk\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
+    "C:\\Users\\Ziadk\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512",
+    "C:\\Users\\Ziadk\\.nuget\\packages\\system.security.accesscontrol\\6.0.0\\system.security.accesscontrol.6.0.0.nupkg.sha512",
+    "C:\\Users\\Ziadk\\.nuget\\packages\\system.security.permissions\\7.0.0\\system.security.permissions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Ziadk\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
