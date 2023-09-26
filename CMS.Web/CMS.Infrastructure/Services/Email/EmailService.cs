@@ -12,42 +12,39 @@ namespace CMS.Infrastructure.Services
 {
     public class EmailService : IEmailService
     {
-        private readonly string smtpHost = "smtp.gmail.com";
-        private readonly int smtpPort = 587;
-        private readonly string senderEmail = "ziad2001kamal@gmail.com";
-        private readonly string senderPassword = "YOUR_SENDER_PASSWORD";  // Replace with your actual password
-
         public async Task Send(string to, string subject, string body)
         {
+            // create message
+            var message = new MailMessage();
+
+            message.From = new MailAddress("betaaspcourse@gmail.com", "Product App");
+            message.Subject = subject;
+            message.Body = body;
+            message.To.Add(new MailAddress(to));
+            message.IsBodyHtml = false;
+
+
             try
             {
-                // create message
-                var message = new MailMessage
+                var emailClient = new SmtpClient
                 {
-                    From = new MailAddress(senderEmail),
-                    Subject = subject,
-                    Body = body,
-                    IsBodyHtml = false
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("betaaspcourse@gmail.com", "Ahmed11$")
                 };
 
-                message.To.Add(new MailAddress(to));
 
-                using (var emailClient = new SmtpClient(smtpHost, smtpPort))
-                {
-                    emailClient.EnableSsl = true;
-                    emailClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    emailClient.UseDefaultCredentials = false;
-                    emailClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
-
-                    await emailClient.SendMailAsync(message);
-                }
+                await emailClient.SendMailAsync(message);
             }
             catch (Exception e)
             {
-                // Handle exceptions appropriately (log, rethrow, etc.)
-                Console.WriteLine("An error occurred while sending the email: " + e.Message);
-                throw;  // Re-throw the exception to propagate it
+
             }
+            // send email
+
         }
     }
 }
