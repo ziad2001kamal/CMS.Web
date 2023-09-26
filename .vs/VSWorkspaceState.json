@@ -1,7 +1,14 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\CMS.Web",
+    "\\CMS.Web\\CMS.Infrastructure",
+    "\\CMS.Web\\CMS.Infrastructure\\Services",
+    "\\CMS.Web\\CMS.Infrastructure\\Services\\Email",
+    "\\CMS.Web\\CMS.Web",
+    "\\CMS.Web\\CMS.Web\\Views",
+    "\\CMS.Web\\CMS.Web\\Views\\Shared"
   ],
-  "SelectedNode": "\\C:\\Users\\Ziadk\\source\\repos\\project",
+  "SelectedNode": "\\CMS.Web\\CMS.Infrastructure\\Services\\Email\\EmailService.cs",
   "PreviewInSolutionExplorer": false
 }

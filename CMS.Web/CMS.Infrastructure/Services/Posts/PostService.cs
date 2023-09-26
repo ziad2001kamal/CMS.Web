@@ -6,7 +6,9 @@ using CMS.Core.ViewModel;
 using CMS.Data;
 using CMS.Data.Migrations;
 using CMS.Data.Models;
+using CMS.Infrastructure.Services.Notifications;
 using CMS.Infrastructure.Services.Users;
+using FirebaseAdmin.Messaging;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,7 @@ namespace CMS.Infrastructure.Services.Posts
         private readonly IUserService _userService;
         private readonly IEmailService _emailService;
         private readonly IFileService _fileService;
+        private readonly INotificationService _notificationservice;
 
 
         public PostService(CMSDbContext db, IMapper mapper, IUserService userService, IFileService fileService, IEmailService emailService)
@@ -56,30 +59,30 @@ namespace CMS.Infrastructure.Services.Posts
                     perpage = pagination.PerPage,
                     pages = pages,
                     total = dataCount,
-                }  
+                }
             };
             return result;
         }
         public async Task<int> Create(CreatePostDto dto)
         {
-           var post = _mapper.Map<Post>(dto);
+            var post = _mapper.Map<Post>(dto);
             await _db.Posts.AddAsync(post);
             await _db.SaveChangesAsync();
-            
+
             if (dto.Attachments != null)
             {
                 foreach (var a in dto.Attachments)
                 {
                     var postattachment = new PostAttachment();
                     postattachment.AttachmentUrl = await _fileService.SaveFile(a, "Images");
-                        postattachment.PostId = post.Id;
+                    postattachment.PostId = post.Id;
                     await _db.PostAttachments.AddAsync(postattachment);
                     await _db.SaveChangesAsync();
 
 
                 }
             }
-            
+
             return post.Id;
         }
 
@@ -95,7 +98,7 @@ namespace CMS.Infrastructure.Services.Posts
             _db.Posts.Update(updatedpost);
             await _db.SaveChangesAsync();
 
-            if (dto.Attachments!= null)
+            if (dto.Attachments != null)
             {
                 foreach (var a in dto.Attachments)
                 {
@@ -139,17 +142,17 @@ namespace CMS.Infrastructure.Services.Posts
             }
             return _mapper.Map<UpdatePostDto>(post);
         }
-         
-        public async Task<int> UpdateStatus(int id ,ContentStatus status)
+
+        public async Task<int> UpdateStatus(int id, ContentStatus status)
         {
-            var post = await _db.Posts.Include(x => x.Author).SingleOrDefaultAsync(x => x.Id==id && !x.IsDelete);
+            var post = await _db.Posts.Include(x => x.Author).SingleOrDefaultAsync(x => x.Id == id && !x.IsDelete);
             if (post == null)
             {
                 throw new EntityNotFoundException();
             }
             var changeLog = new ContentChangeLog();
             changeLog.ContentId = post.Id;
-            changeLog.Type= ContentType.Post;
+            changeLog.Type = ContentType.Post;
             changeLog.Old = post.Status;
             changeLog.New = status;
             changeLog.ChangeAt = DateTime.Now;
@@ -158,10 +161,15 @@ namespace CMS.Infrastructure.Services.Posts
             post.Status = status;
             _db.Posts.Update(post);
             await _db.SaveChangesAsync();
-            await _emailService.Send(post.Author.Email,"Update Post Status !", $" YOUR POST Now IS {status.ToString()}");
+            await _emailService.Send(post.Author.Email, "Update Post Status !", $" YOUR POST Now IS {status.ToString()}");
+            _notificationservice.SendByFCM(post.Author.FCMToken, new NotificationDto()
+            {
+                Title = "Update Post",
+                Body = "By Ahmed",
+                Action = NotificationAction.General,
+                ActionId = ""
+            });
             return post.Id;
         }
-    
-
-    
-}}
+    }
+}
