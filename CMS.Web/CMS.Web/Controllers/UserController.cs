@@ -27,11 +27,6 @@ namespace CMS.Web.Controllers
             return Ok("Update Fcm User");
         }
 
-        public async Task<JsonResult> GetUserData(Pagination pagination, Core.Dtos.Query query)
-        {
-            var result =await _userServices.GetAll(pagination, query);
-            return Json(result);
-        }
         [HttpGet] 
         public IActionResult Create()
         {
